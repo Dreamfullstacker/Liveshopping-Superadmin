@@ -31,7 +31,6 @@ const Root = (props) =>  {
     // eslint-disable-next-line
     }, []);
 
-
   return(
       <Fragment>
         <Provider store={store}>
