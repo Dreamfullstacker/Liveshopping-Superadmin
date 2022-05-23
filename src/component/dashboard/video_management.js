@@ -71,7 +71,6 @@ const  VideoManagement = (props) => {
             {/* {e.Thumbnails.map(Thumbnail => (
               <img key={Thumbnail} className="img-mini-thumbnail" src={Thumbnail} itemProp="thumbnail" alt="Image description" style={{margin : '0px 10px'}}></img>
             ))} */}
-            
           </>
         );
       },
