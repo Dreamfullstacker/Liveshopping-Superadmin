@@ -199,11 +199,21 @@ const  VideoManagement = (props) => {
                 if(json.Items[i].Scheduled_Statu == true)
                 {
                   console.log(scheduledvideodata)
-                  setScheduledVideoData(scheduledvideodata.concat(json.Items[i]))
+                  setScheduledVideoData((prevState) => {
+                    return [
+                      ...prevState,
+                      json.Items[i]
+                    ];
+                  })
                 }
                 else{
                   console.log(recordedvideodata)
-                  setRecordedVideoData(recordedvideodata.concat(json.Items[i]))
+                  setRecordedVideoData((prevState) => {
+                    return [
+                      ...prevState,
+                      json.Items[i]
+                    ];
+                  })
                 }
               }
               // setRecordedVideoData(json.Items)
