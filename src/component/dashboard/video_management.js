@@ -8,7 +8,8 @@ import VideoPlayer from "./VideoPlayer/VideoPlayer";
 
 const  VideoManagement = (props) => {
   const [userdata, setUserData] = useState([]);
-  const [videodata, setVideoData] = useState([]);
+  const [recordedvideodata, setRecordedVideoData] = useState([]);
+  const [scheduledvideodata, setScheduledVideoData] = useState([]);
   const [current_username , setCurrentUserName] = useState();
   const [currentChannel, setCurrentChannel] = useState();
   const [showChanneldata, setshowChanneldata] = useState(false);
@@ -189,7 +190,23 @@ const  VideoManagement = (props) => {
             .then(response => response.json())
             .then((json)=> {
               console.log(json.Items)
-              setVideoData(json.Items)
+              // json.Items.map(video => {
+              //   console.log(video.Scheduled_Statu)
+              // })
+              for(var i=0; i<json.Items.length; i++)
+              {
+                console.log(json.Items[i].Scheduled_Statu);
+                if(json.Items[i].Scheduled_Statu == true)
+                {
+                  console.log(recordedvideodata)
+                  setScheduledVideoData(scheduledvideodata.concat(json.Items[i]))
+                }
+                else{
+                  setRecordedVideoData(recordedvideodata.concat(json.Items[i]))
+                }
+              }
+              // setRecordedVideoData(json.Items)
+              // setScheduledVideoData(json.Items)
             })
           } catch (error) {
             console.log(error)
@@ -212,7 +229,11 @@ const  VideoManagement = (props) => {
 
   const ShowVideoInfoModaltoggle = () => setShowVideoInfoModal(!ShowVideoInfoModal);
 
-  const handle_rowclick = (e) => {
+  const handle_recorded_rowclick = (e) => {
+    setCurrentVideo(e);
+    ShowVideoInfoModaltoggle()
+  }
+  const handle_scheduled_rowclick = (e) => {
     setCurrentVideo(e);
     ShowVideoInfoModaltoggle()
   }
@@ -253,13 +274,24 @@ const  VideoManagement = (props) => {
                             </div>
                           </div>
                           <DataTable
+                            title="Recorded Video"
                             columns={columns}
-                            data={videodata}
+                            data={recordedvideodata}
                             striped={true}
                             center={true}
                             selectableRows
                             persistTableHead
-                            onRowClicked = {handle_rowclick}
+                            onRowClicked = {handle_recorded_rowclick}
+                          />
+                          <DataTable
+                            title="Scheduled Video"
+                            columns={columns}
+                            data={scheduledvideodata}
+                            striped={true}
+                            center={true}
+                            selectableRows
+                            persistTableHead
+                            onRowClicked = {handle_scheduled_rowclick}
                           />
                         </div>
                         :'There is no recorded videos'
