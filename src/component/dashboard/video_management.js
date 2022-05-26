@@ -294,6 +294,7 @@ const  VideoManagement = (props) => {
                             persistTableHead
                             onRowClicked = {handle_recorded_rowclick}
                           />
+                              
                           <DataTable
                             title="Scheduled Video"
                             columns={columns}
